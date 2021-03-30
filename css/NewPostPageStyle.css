@@ -22,4 +22,14 @@
     font-size: 18px;
     width: 100%;
     resize: none;
+    margin-bottom: 20px;
+}
+.footerBtn {
+    text-align: right;
+}
+.footerBtn a {
+    text-decoration: none;
+}
+.footerBtn button:first-child {
+    margin-right: 20px;
 }
