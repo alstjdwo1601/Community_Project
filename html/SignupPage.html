@@ -3,48 +3,49 @@
 <head>
     <title>SignUp Page</title>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="/css/SignupStyle.css">
 </head>
 <body>
     <section class="signup">
         <h1>회원가입</h1>
         
         <form action="">
-            <div>
+            <div class="idArea">
                 <label for="id">아이디 입력: </label>
                 <input type="text" name="userId" id="id"
                autocomplete="off" required>
               
             </div>
                 
-            <div>
+            <div class="nickArea">
                <label for="nick">닉네임 생성: </label>
                 <input type="text" name="userNickname" id="nick"
                autocomplete="off" required>
                
             </div>
                 
-            <div>
+            <div class="pwArea">
                <label for="pw">비밀번호 입력: </label>
                 <input type="password" name="userPw" id="pw"
                autocomplete="off" required>
                
             </div>
                 
-            <div>
+            <div class="pw2Area">
                <label for="pw2">비밀번호 확인: </label>
                 <input type="password" name="userPw2" id="pw2"
                autocomplete="off" required>
                
             </div>
             
-            <div>
+            <div class="nameArea">
               <label for="name">이름: </label>
                <input type="text" name="userName" id="name"
                autocomplete="off" required>
                 
             </div>
             
-            <div>
+            <div class="emailArea">
                <label for="email">이메일: </label> 
                 <input type="email" name="userEmail" id="email"
                autocomplete="off" required>
@@ -52,7 +53,8 @@
             </div>
             
             <div class="btnArea">
-                <button type="submit">완료</button>
+                <button type="submit" id="btn"
+                onClick="location.href='MainPage.html'">회원가입</button>
            </div>
         </form>
     </section>
