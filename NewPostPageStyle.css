@@ -1,0 +1,25 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+.headDescription {
+    padding: 50px;
+    text-align: center;
+}
+.boxContainer {
+    margin-left: 25%;
+    width: 50%;
+}
+.boxContainer p {
+    padding-bottom: 10px;
+}
+.boxContainer input {
+    font-size: 20px;
+    width: 100%;
+    margin-bottom: 50px;
+}
+.boxContainer .textArea {
+    font-size: 18px;
+    width: 100%;
+    resize: none;
+}
