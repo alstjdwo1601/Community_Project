@@ -26,7 +26,7 @@
            </div>
            <!-- 로그인 버튼-->
            <div class="btnArea">
-                <button type="submit">로그인</button>
+                <button type="submit" id="btn">LOGIN</button>
            </div>
        </form>
        
@@ -34,6 +34,26 @@
            <a href="SignupPage.html">회원가입</a>
        </div>
    </section>
-    
+      
+      <!-- 자바스크립트 코드-->
+       <script>
+            let id = $('#id');
+            let pw = $('#pw');
+            let btn = $('#btn');
+            
+            $btn.on('click', function(){
+                if($(id).val() ==""){
+                    $(id).next('label').addClass('warning');
+                    setTimeout(function(){
+                        $('label').removeClass('warning');
+                    },1500);
+                }
+                else if($(pw).val() == ""){
+                    $(pw).next('label').addClass('warning');
+                }
+                
+            });
+        </script>
+
 </body>
 </html>
