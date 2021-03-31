@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/public/PostListPageStyle.css">
+    <title>게시글 목록</title>
+</head>
+<body>
+    <div class="pageDescription">
+        <h1>공지사항</h1>
+        <p>공지사항을 빠르고 정확하게 전달합니다.</p>
+    </div>
+    <div class="boardListWrap">
+        <table class="boardList">
+            <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>제목</th>
+                    <th>글쓴이</th>
+                    <th>작성일</th>
+                    <th>조회</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>5</td> 
+                    <td class="postTitle">
+                        <a href="#">공지사항 작성요령5</a>
+                    </td> 
+                    <td>관리자</td> 
+                    <td>2021.03.29</td> 
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td>4</td> 
+                    <td class="postTitle">
+                        <a href="#">공지사항 작성요령4</a>
+                    </td> 
+                    <td>관리자</td> 
+                    <td>2021.03.29</td> 
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td>3</td> 
+                    <td class="postTitle">
+                        <a href="#">공지사항 작성요령3</a>
+                    </td> 
+                    <td>관리자</td> 
+                    <td>2021.03.29</td> 
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td>2</td> 
+                    <td class="postTitle">
+                        <a href="#">공지사항 작성요령2</a>
+                    </td> 
+                    <td>관리자</td> 
+                    <td>2021.03.29</td> 
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td>1</td> 
+                    <td class="postTitle">
+                        <a href="#">공지사항 작성요령1</a>
+                    </td> 
+                    <td>관리자</td> 
+                    <td>2021.03.29</td> 
+                    <td>1</td>
+                </tr>
+            </tbody>
+        </table>
+    
+        <div class="pages">
+            <a href="#" class="pageIndex">Start</a>
+            <a href="#" class="pageIndex">Back</a>
+            <a href="#" class="pageNumber on">1</a>
+            <a href="#" class="pageNumber">2</a>
+            <a href="#" class="pageNumber">3</a>
+            <a href="#" class="pageIndex">Next</a>
+            <a href="#" class="pageIndex">End</a>
+        </div>
+
+        <form action="/public/NewPostPage.html">
+            <input type="submit" value="글쓰기" id="submitButton">
+        </form>
+    </div>
+</body>
+</html>
