@@ -1,62 +1,94 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>SignUp Page</title>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="SignupStyle.css">
-</head>
-<body>
-    <section class="signup">
-        <h1>회원가입</h1>
+   <head>
+      <title>SignUp Page</title>
+      <meta charset="utf-8">
+      <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-app.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-firestore.js"></script>
+      <link rel="stylesheet" href="SignupStyle.css">
+   </head>
+
+   <body>
+      <section class="signup">
+         <h1>회원가입</h1>
         
-        <form action="">
+         <form action="">
             <div class="idArea">
-                <label for="id">아이디 입력: </label>
-                <input type="text" name="userId" id="id"
-               autocomplete="off" required>
-              
+               <script>
+                  function idValidationCheck() {
+                     // 아이디 중복값 체킹 
+                  }
+               </script>
+
+               <label for="id">아이디 입력: </label>
+               <input type="text" id="Id" autocomplete="off" required>
+               <button onclick="idValidationCheck()">중복검사</button>
             </div>
                 
             <div class="nickArea">
+               <script>
+                  function nicknameValidationCheck() {
+                     // 닉네임 중복값 체킹 
+                  }
+               </script>
                <label for="nick">닉네임 생성: </label>
-                <input type="text" name="userNickname" id="nick"
-               autocomplete="off" required>
-               
+               <input type="text" id="Nickname" autocomplete="off" required>
+               <button onclick="nicknameValidationCheck()">중복검사</button>
             </div>
                 
             <div class="pwArea">
                <label for="pw">비밀번호 입력: </label>
-                <input type="password" name="userPw" id="pw"
-               autocomplete="off" required>
-               
+               <input type="password" id="Password" autocomplete="off" required>
             </div>
                 
             <div class="pw2Area">
                <label for="pw2">비밀번호 확인: </label>
-                <input type="password" name="userPw2" id="pw2"
-               autocomplete="off" required>
-               
+               <input type="password" id="Password2" autocomplete="off" required>
             </div>
             
             <div class="nameArea">
-              <label for="name">이름: </label>
-               <input type="text" name="userName" id="name"
-               autocomplete="off" required>
-                
+               <label for="name">이름: </label>
+               <input type="text" id="Name" autocomplete="off" required>
             </div>
             
             <div class="emailArea">
                <label for="email">이메일: </label> 
-                <input type="email" name="userEmail" id="email"
-               autocomplete="off" required>
-               
+               <input type="email" id="Email" autocomplete="off" required>
             </div>
-            
+
             <div class="btnArea">
-                <button type="submit" id="btn"
-                onClick="location.href='MainPage.html'">회원가입</button>
-           </div>
-        </form>
-    </section>
-</body>
+               <div id="btn">회원가입</div>
+               <script src="firebaseSetting.js"></script>
+               <script>
+                  // Input값 id로 받아오기
+                  const EmailVal     = document.getElementById('Email');
+                  const IdVal        = document.getElementById("Id");
+                  const NameVal      = document.getElementById('Name');
+                  const NicknameVal  = document.getElementById('Nickname');
+                  const PasswordVal  = document.getElementById('Password');
+
+                  // 버튼 Id 받아오기(div로 되어있음)
+                  const signupBtn = document.getElementById("btn");
+                  
+                  signupBtn.addEventListener ("click", function() {
+                     // 중복 검사 처리 및 메인 페이지로 이동하는 과정 추가 필요함
+                     var docData = {
+                        userEmail : EmailVal.value,
+                        userId : IdVal.value,
+                        userName : NameVal.value,
+                        userNickName : NicknameVal.value,
+                        userPassword : PasswordVal.value
+                     };
+
+                     // collection "userInformation" 하위에 input field에 적은 Id의 값으로 하위 문서 생성
+                     var docRef = db.collection("userInformation").doc(Id.value);
+                     docRef.set(docData).then(function() {
+                        console.log("Data successfully stored!!!");
+                     });
+                  });
+               </script>
+            </div>
+         </form>
+      </section>
+   </body>
 </html>

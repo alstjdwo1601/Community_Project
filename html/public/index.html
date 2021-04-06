@@ -5,13 +5,15 @@
     <title>
         Main Page
     </title>
+    <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-firestore.js"></script>
     <link rel="stylesheet" href="Style.css">
 </head>
 <body>
-   <section class="loginForm">
+    <section class="loginForm">  
        <h1>Main Page</h1>
        
-       <form action="PostListPage.html">
+        <form action="PostListPage.html">
           <!-- 아이디 입력 받는 칸-->
            <div class="intArea">
                <input type="text" name="id" id="id"
@@ -36,25 +38,26 @@
        </div>
    </section>
       
-      <!-- 자바스크립트 코드-->
-       <script>
-            let id = $('#id');
-            let pw = $('#pw');
-            let btn = $('#btn');
+    <!-- 자바스크립트 코드-->
+    <script src="firebaseSetting.js"></script>
+    <script>
+        let id = $('#id');
+        let pw = $('#pw');
+        let btn = $('#btn');
+        
+        $btn.on('click', function(){
+            if($(id).val() ==""){
+                $(id).next('label').addClass('warning');
+                setTimeout(function(){
+                    $('label').removeClass('warning');
+                },1500);
+            }
+            else if($(pw).val() == ""){
+                $(pw).next('label').addClass('warning');
+            }
             
-            $btn.on('click', function(){
-                if($(id).val() ==""){
-                    $(id).next('label').addClass('warning');
-                    setTimeout(function(){
-                        $('label').removeClass('warning');
-                    },1500);
-                }
-                else if($(pw).val() == ""){
-                    $(pw).next('label').addClass('warning');
-                }
-                
-            });
-        </script>
+        });
+    </script>
 
 </body>
 </html>
