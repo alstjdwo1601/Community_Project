@@ -14,46 +14,35 @@
         
          <form action="">
             <div class="idArea">
-               <script>
-                  function idValidationCheck() {
-                     // 아이디 중복값 체킹 
-                  }
-               </script>
-
                <label for="id">아이디 입력: </label>
-               <input type="text" id="Id" autocomplete="off" required>
-               <button onclick="idValidationCheck()">중복검사</button>
+               <input type="text" id="Id" autocomplete="off">
+               <div id="idValiCheck">중복검사</div>
             </div>
                 
             <div class="nickArea">
-               <script>
-                  function nicknameValidationCheck() {
-                     // 닉네임 중복값 체킹 
-                  }
-               </script>
                <label for="nick">닉네임 생성: </label>
-               <input type="text" id="Nickname" autocomplete="off" required>
-               <button onclick="nicknameValidationCheck()">중복검사</button>
+               <input type="text" id="Nickname" autocomplete="off">
+               <div id="nicknameValiCheck">중복검사</div>
             </div>
                 
             <div class="pwArea">
                <label for="pw">비밀번호 입력: </label>
-               <input type="password" id="Password" autocomplete="off" required>
+               <input type="password" id="Password" autocomplete="off">
             </div>
                 
             <div class="pw2Area">
                <label for="pw2">비밀번호 확인: </label>
-               <input type="password" id="Password2" autocomplete="off" required>
+               <input type="password" id="Password2" autocomplete="off">
             </div>
             
             <div class="nameArea">
                <label for="name">이름: </label>
-               <input type="text" id="Name" autocomplete="off" required>
+               <input type="text" id="Name" autocomplete="off">
             </div>
             
             <div class="emailArea">
                <label for="email">이메일: </label> 
-               <input type="email" id="Email" autocomplete="off" required>
+               <input type="email" id="Email" autocomplete="off">
             </div>
 
             <div class="btnArea">
@@ -61,30 +50,127 @@
                <script src="firebaseSetting.js"></script>
                <script>
                   // Input값 id로 받아오기
-                  const EmailVal     = document.getElementById('Email');
-                  const IdVal        = document.getElementById("Id");
-                  const NameVal      = document.getElementById('Name');
-                  const NicknameVal  = document.getElementById('Nickname');
-                  const PasswordVal  = document.getElementById('Password');
-
-                  // 버튼 Id 받아오기(div로 되어있음)
-                  const signupBtn = document.getElementById("btn");
+                  const EmailVal      = document.getElementById('Email');
+                  const IdVal         = document.getElementById("Id");
+                  const NameVal       = document.getElementById('Name');
+                  const NicknameVal   = document.getElementById('Nickname');
+                  const PasswordVal   = document.getElementById('Password');
+                  const Password2Val  = document.getElementById('Password2');
                   
+                  // 버튼 Id 받아오기
+                  const signupBtn            = document.getElementById("btn");
+                  const idValiCheckBtn       = document.getElementById("idValiCheck");
+                  const nicknameValiCheckBtn = document.getElementById("nicknameValiCheck");
+
+                  // 아이디와 닉네임 중복검사를 위한 flag
+                  var id_flag = 0;
+                  var nickname_flag = 0;
+                  var final_id = "";
+                  var final_nickname = "";
+                  var docRef = "";
+
+                  // 아이디 중복검사 버튼 로직
+                  idValiCheckBtn.addEventListener("click", function() {
+                     if (IdVal.value == "") {
+                        alert("아이디를 입력하세요.");
+                     } else { // userInformation 콜렉션 하위의 document중 입력된 아이디와 같은 값이 있는지를 체킹
+                        docRef = db.collection("userInformation").doc(Id.value);
+                        docRef.get().then((doc) => {
+                           if (doc.exists) {
+                              id_flag = 0;
+                              alert("이미 존재하는 아이디입니다.");
+                              IdVal.value = "";
+                           }
+                           else {
+                              id_flag = 1;
+                              final_id = IdVal.value;
+                              alert("사용 가능한 아이디입니다.");
+                           }
+                        });
+                     }
+                  });
+
+                  // 닉네임 중복검사 버튼 로직
+                  nicknameValiCheckBtn.addEventListener("click", function() {
+                     if (nickname_flag == 1) {
+                        if (NicknameVal.value == "") {
+                           alert("닉네임을 입력하세요.");
+                        } else {
+                           alert("사용 가능한 닉네임입니다.");
+                           final_nickname = NicknameVal.value;
+                        }
+                     }
+                     else {
+                        if (NicknameVal.value == "") {
+                           alert("닉네임을 입력하세요.");
+                        }
+                        // 닉네임이 이미 userInformation 안에 존재하는지 검사(collection 하위의 모든 document에서 nickname을 추출해서 비교)
+                        db.collection("userInformation").get().then((querySnapshot) => {
+                           querySnapshot.forEach((doc) => {
+                              var nick = doc.data().userNickname;
+                              if (NicknameVal.value == nick) {
+                                 nickname_flag = 0;
+                                 return false;
+                              }
+                              nickname_flag = 1;
+                           });
+                        });
+                        if (nickname_flag == 0) {
+                           alert("이미 존재하는 닉네임입니다.");
+                           NicknameVal.value = "";
+                        }
+                     }
+                  });
+
+                  // 회원가입 버튼 눌렀을 때 로직
                   signupBtn.addEventListener ("click", function() {
-                     // 중복 검사 처리 및 메인 페이지로 이동하는 과정 추가 필요함
                      var docData = {
                         userEmail : EmailVal.value,
                         userId : IdVal.value,
                         userName : NameVal.value,
-                        userNickName : NicknameVal.value,
+                        userNickname : NicknameVal.value,
                         userPassword : PasswordVal.value
                      };
-
-                     // collection "userInformation" 하위에 input field에 적은 Id의 값으로 하위 문서 생성
-                     var docRef = db.collection("userInformation").doc(Id.value);
-                     docRef.set(docData).then(function() {
-                        console.log("Data successfully stored!!!");
-                     });
+                     
+                     if (IdVal.value == "") {
+                        alert("아이디를 입력하세요.");
+                     } else {
+                        // collection "userInformation" 하위에 input field에 적은 Id의 값으로 하위 문서 생성
+                        var docRef = db.collection("userInformation").doc(Id.value);
+                        
+                        docRef.get().then((doc) => {
+                           // 필수 입력 정보 미기재 체킹
+                           if (EmailVal.value == "" || IdVal.value == "" || NameVal.value == "" || NicknameVal.value == "" || PasswordVal.value == "") {
+                              alert("필수 형식을 맞춰주세요.");
+                           }
+                           else if (id_flag == 0) {                              // 아이디 중복검사 미실시 체킹
+                              alert("아이디 중복검사를 해주세요.");
+                           }
+                           else if (final_id != IdVal.value) {                   // 아이디 중복검사 통과 후(flag가 1인 상태) 아이디를 변경한 경우 체킹
+                              alert("아이디 중복검사를 해주세요.");
+                              id_flag = 0;
+                           }
+                           else if (nickname_flag == 0) {                        // 닉네임 중복검사 미실시 체킹
+                              alert("닉네임 중복검사를 해주세요.");
+                           }
+                           else if (final_nickname != NicknameVal.value) {       // 닉네임 중복검사 통과 후(flag가 1인 상태) 닉네임을 변경한 경우 체킹
+                              alert("닉네임 중복검사를 해주세요.");
+                              nickname_flag = 0;
+                           }
+                           else if (PasswordVal.value != Password2Val.value) {   // 패스워드 불일치 체킹
+                              alert("패스워드가 불일치합니다.");
+                              PasswordVal.value = "";
+                              Password2Val.value = "";
+                           }
+                           else {
+                              docRef.set(docData).then(function() {
+                                 console.log("Data successfully stored!!!");
+                                 alert("회원가입이 완료되었습니다.");
+                                 location.href = "index.html";
+                              });
+                           }
+                        });
+                     }
                   });
                </script>
             </div>
