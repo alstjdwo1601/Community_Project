@@ -17,6 +17,16 @@ a {
     margin-top: 50px;
 }
 
+.userNickname{
+    padding: 20px;
+    padding-bottom: 10px;
+}
+.logoutArea{
+     padding: 10px;
+    padding-bottom: 0px;
+    
+}
+
 .boardListWrap {
     padding: 50px;
 }
